@@ -6,7 +6,7 @@ nm-applet &
 
 blueman-applet &
 
-compton &
+picom &
 
 feh --bg-fill /home/panther/Wallpapers/archkali.png &
 

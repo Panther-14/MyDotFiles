@@ -137,3 +137,37 @@ XF86AudioRaiseVolume
 # Bajar volumen con teclas de volumen
 XF86AudioLowerVolume
     pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# Mute
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Audio Prev
+XF86AudioPrev
+    playerctl previous
+
+# Audio Next
+XF86AudioNext
+    playerctl next
+
+# Audio Play-Pause
+XF86AudioPlay
+    playerctl play-pause
+
+# Screenshots
+@Print
+    scrot -ozs -F /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    #flameshot gui -p ~/Screenshots
+
+alt + @Print
+    scrot -ozd 5 /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    #flameshot gui -c -d 5000 -p ~/Screenshots
+
+ctrl + @Print
+    scrot -ozu /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    #flameshot gui -p ~/Screenshots
+
+
+# Navegador
+XF86HomePage
+   google-chrome

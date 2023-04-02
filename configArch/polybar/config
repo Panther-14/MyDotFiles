@@ -64,7 +64,7 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-1 = Hack Nerd Font:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
 modules-left = bspwm i3
@@ -435,7 +435,8 @@ margin-bottom = 5
 
 [module/notif]
 type = custom/script
-exec = echo "Notifications"
+label-font = Hack Nerd Font:fontformat=truetype:size=8:antialias=false;0
+exec = echo "󰮯 Notifications 󰊠"
 click-left = dunstctl history-pop
 click-right = dunstctl close-all
 tail = true

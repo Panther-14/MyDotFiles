@@ -156,18 +156,18 @@ XF86AudioPlay
 
 # Screenshots
 @Print
-    scrot -ozs -F /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    scrot -ozs -F $HOME/Imágenes/Screenshots/%Y%m%dT%H%M%S.png
     #flameshot gui -p ~/Screenshots
 
 alt + @Print
-    scrot -ozd 5 /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    scrot -ozd 5 $HOME/Imágenes/Screenshots/%Y%m%dT%H%M%S.png
     #flameshot gui -c -d 5000 -p ~/Screenshots
 
 ctrl + @Print
-    scrot -ozu /home/panther/Screenshots/%Y%m%dT%H%M%S.png
+    scrot -ozu $HOME/Imágenes/Screenshots/%Y%m%dT%H%M%S.png
     #flameshot gui -p ~/Screenshots
 
 
 # Navegador
 XF86HomePage
-   google-chrome
+   firefox

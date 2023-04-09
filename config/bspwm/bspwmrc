@@ -8,7 +8,7 @@ blueman-applet &
 
 picom &
 
-feh --bg-fill $HOME/Wallpapers/archkali.png &
+feh --bg-fill $HOME/Imágenes/Wallpapers/archkali.png &
 
 setxkbmap -layout latam
 

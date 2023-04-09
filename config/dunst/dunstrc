@@ -1,7 +1,7 @@
 [colors]
-    background	= "#1a2024"
-    foregroun	= "#c7d5de"
-    frame_color = "#f7ce89"
+    background	= "#000000"
+    foreground	= "#FFFFFF"
+#    frame_color = "#70D6FF"
 
 
 [global]
@@ -45,7 +45,7 @@
     # window allows bounces back and forth.
     # This option conflicts with "word_wrap".
     # Set to 0 to disable.
-    bounce_freq = 5
+#    bounce_freq = 5
 
 
     # Show age of message if message is older than show_age_threshold
@@ -73,7 +73,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "450x4-25+25"
+#    geometry = "450x4-25+25"
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -143,7 +143,7 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = false
+#    startup_notification = false
 
     # dmenu path.
     dmenu = /usr/bin/dmenu -p dunst:
@@ -160,7 +160,7 @@
     # Limit icons size.
     max_icon_size=128
 
-[shortcuts]
+#[shortcuts]
 
     # Shortcuts are specified as [modifier+][modifier+]...key
     # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
@@ -172,34 +172,34 @@
 
     # Close all notifications.
     # close_all = ctrl+google-chrome-unestablepace
-    close_all = ctrl+mod1+space
+#    close_all = ctrl+mod1+space
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-     history = ctrl+shift+1
+#     history = ctrl+shift+1
 
     # Context menu.
-    context = shift+mod4+space
+#    context = shift+mod4+space
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#313D4A"
-    foreground = "#F9FAF9"
-    frame_color = "#9DB788"
+    background = "#FFB3DE"
+    foreground = "#000000"
+#    frame_color = "#FFB3DE"
     timeout = 2
 
 [urgency_normal]
-    background = "#313D4A"
-    foreground = "#F9FAF9"
-    frame_color = "#2E2E2D"
+    background = "#C7FF8F"
+    foreground = "#000000"
+#   frame_color = "#C7FF8F"
     timeout = 2
 
 [urgency_critical]
-    background = "#313D4A"
-    foreground = "#F9FAF9"
-    frame_color = "#D62929"
+    background = "#FF4242"
+    foreground = "#000000"
+#    frame_color = "#FF4242"
     timeout = 2
 
 
@@ -278,24 +278,24 @@
 #    background = "#A8EB41"
 #    foreground = "#FFFFFF"
 #
-[irc]
-        appname = weechat
-        timeout = 0
-        background = "#0033bb"
-        foreground = "#dddddd"
-#
-[weechat hl]
-     appname = weechat
-     category = weechat.HL
-     background = "#FF5C47"
-     foreground = "#FFFFFF"
-#
-[weechat pn]
-     appname = weechat
-     category = weechat.PM
-     background = "#D53B84"
-     foreground = "#FFFFFF"
-#
+#[irc]
+#        appname = weech
+#        timeout = 0
+#        background = "#0033bb"
+#        foreground = "#dddddd"
+##
+#[weechat hl]
+#     appname = weechat
+#     category = weechat.HL
+#     background = "#FF5C47"
+#     foreground = "#FFFFFF"
+##
+#[weechat pn]
+#     appname = weechat
+#     category = weechat.PM
+#     background = "#D53B84"
+#     foreground = "#FFFFFF"
+##
 #[CMUS]
 #    appname = CMUS
 #    category = cmus
@@ -306,9 +306,9 @@
 #     background = "#30AB70"
 #     foreground = "#F67245"
 #
-[Spotify]
-	appname = Spotify
-	frame_color = "#30AB70"
-	timeout = 5
-
+#[Spotify]
+#	appname = Spotify
+#	frame_color = "#30AB70"
+#	timeout = 5
+#
 # vim: ft=cfg

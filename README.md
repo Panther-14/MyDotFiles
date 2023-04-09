@@ -35,8 +35,8 @@
  ├─ Font                 -> Hack Nerd Font
  ├─ Compositor           -> Picom
  ├─ Program Launcher     -> Rofi
- ├─ Notification Daemon  -> Dunst
- ╰─ Hotel                -> Trivago
+ ╰─ Notification Daemon  -> Dunst
+ 
 ```
 
 ## Wallpaper

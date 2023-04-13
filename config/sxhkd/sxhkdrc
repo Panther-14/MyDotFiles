@@ -11,7 +11,7 @@ super + r
 	dmenu_run
 # rofi program launcher
 super + @space
-	rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi -icon-theme "Papirus" -show-icons
+	rofi -show combi
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd

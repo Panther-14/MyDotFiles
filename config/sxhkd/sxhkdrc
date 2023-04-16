@@ -125,7 +125,7 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
-# Audio Tools
+# CUSTOM
 #
 
 # Subir volumen con teclas de volumen
@@ -160,10 +160,8 @@ XF86AudioNext
 XF86AudioPlay
     playerctl play-pause
 
-#
-# Screenshots
-#
 
+# Screenshots
 @Print
     scrot -ozs -F $HOME/Imágenes/Screenshots/%Y%m%dT%H%M%S.png
     #flameshot gui -p ~/Screenshots
@@ -180,3 +178,7 @@ ctrl + @Print
 # Navegador
 XF86HomePage
    firefox
+
+# Power Off
+super + F4
+	$HOME/.config/polybar/scripts/powermenu

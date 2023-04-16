@@ -1,5 +1,5 @@
 * {
-  font:   "Iosevka Nerd Font Medium 11";
+  font:   "Hack Nerd Font Medium 9";
 
   bg0     : #1a1b26;
   bg1     : #1f2335;
@@ -34,7 +34,7 @@ window {
   location : northwest;
   width    : 280px;
   x-offset : 4px;
-  y-offset : 26px;
+  y-offset : 40px;
 
   background-color: @bg1;
   border: 1px;

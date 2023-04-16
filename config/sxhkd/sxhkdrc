@@ -8,10 +8,12 @@ super + Return
 
 # program launcher
 super + r
-	dmenu_run
+	rofi -show run
+
 # rofi program launcher
 super + @space
 	rofi -show combi
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -122,6 +124,10 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+#
+# Audio Tools
+#
+
 # Subir volumen con teclas de volumen
 #XF86AudioRaiseVolume
 #    amixer -q sset Master 5%+
@@ -154,7 +160,10 @@ XF86AudioNext
 XF86AudioPlay
     playerctl play-pause
 
+#
 # Screenshots
+#
+
 @Print
     scrot -ozs -F $HOME/Imágenes/Screenshots/%Y%m%dT%H%M%S.png
     #flameshot gui -p ~/Screenshots

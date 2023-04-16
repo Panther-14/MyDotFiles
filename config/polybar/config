@@ -43,7 +43,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = xkeyboard battery memory cpu pulseaudio
 modules-center = bspwm
-modules-right = temperature wlan eth date notif shutdown 
+modules-right = temperature wlan eth date notif sysmenu
 
 tray-position = right
 tray-padding = 2
@@ -401,6 +401,26 @@ menu-0-1-exec = systemctl reboot
 menu-0-2 = 
 menu-0-2-exec = systemctl poweroff
 
+[module/notif]
+type = custom/script
+exec = echo "  "
+click-left = dunstctl history-pop
+click-right = dunstctl close-all
+tail = true
+interval = 5
+
+[module/counter]
+type = internal/counter
+format = <counter>
+interval = 0.1
+
+[module/sysmenu]
+type = custom/text
+content = 
+
+content-foreground = ${colors.secondary}
+click-left = ~/.config/polybar/scripts/powermenu
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -414,17 +434,3 @@ margin-top = 5
 margin-bottom = 5
 
 ; vim:ft=dosini
-
-
-[module/notif]
-type = custom/script
-exec = echo "  "
-click-left = dunstctl history-pop
-click-right = dunstctl close-all
-tail = true
-interval = 5
-
-[module/counter]
-type = internal/counter
-format = <counter>
-interval = 0.1

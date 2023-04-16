@@ -180,5 +180,5 @@ XF86HomePage
    firefox
 
 # Power Off
-super + F4
+alt + F4
 	$HOME/.config/polybar/scripts/powermenu

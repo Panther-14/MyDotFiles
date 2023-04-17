@@ -30,8 +30,8 @@
  ├─ Top bar              -> Polybar
  ├─ Terminal             -> Kitty
  ├─ Cursors              -> Simp1e Tokyo Night Storm
- ├─ Theme                -> Adwaita
- ├─ Icons                -> Adwaita
+ ├─ Theme                -> Tokyonight Storm B
+ ├─ Icons                -> Tokyonight Dark
  ├─ Font                 -> Hack Nerd Font
  ├─ Compositor           -> Picom
  ├─ Program Launcher     -> Rofi

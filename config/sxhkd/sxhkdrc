@@ -177,8 +177,12 @@ ctrl + @Print
 
 # Navegador
 XF86HomePage
-   firefox
+#   firefox
+   com.google.Chrome
 
 # Power Off
 alt + F4
-	$HOME/.config/polybar/scripts/powermenu
+	$HOME/.config/sxhkd/scripts/powermenu
+# Wallpaper Selector
+super + q
+	$HOME/.config/sxhkd/scripts/wallpaperSelector

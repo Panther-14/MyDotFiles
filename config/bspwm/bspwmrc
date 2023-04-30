@@ -6,9 +6,13 @@ nm-applet &
 
 blueman-applet &
 
+killall -q clipit
+clipit &
+
 picom &
 
-feh --bg-fill $HOME/Imágenes/Wallpapers/archkali.png &
+# feh --bg-fill $HOME/Imágenes/Wallpapers/wall-04.webp &
+feh --bg-fill $(cat ~/.wallpaper)
 
 setxkbmap -layout latam
 

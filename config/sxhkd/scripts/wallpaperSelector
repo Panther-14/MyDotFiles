@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Obtener la ruta de la carpeta que contiene las imágenes
+folder="$HOME/Imágenes/Wallpapers"
+
+# Obtener la lista de imágenes en la carpeta
+files=$(find "$folder" -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" | sort)
+
+# Formatear la lista de imágenes para mostrar solo los nombres de archivo
+formatted_files=$(echo "$files" | xargs -n 1 basename)
+
+# Mostrar la lista de imágenes en un menú rofi y capturar la selección del usuario
+choice=$(echo "$formatted_files" | rofi -dmenu -i -p "Seleccione una imagen:" -format d)
+
+# Obtener la ruta completa de la imagen seleccionada
+selected_file=$(echo "$files" | sed -n "$choice"p)
+
+# Si el usuario selecciona una imagen, establecerla como fondo de pantalla
+if [ -n "$choice" ]; then
+  feh --bg-fill "$selected_file"
+  echo "$selected_file" > ~/.wallpaper
+fi

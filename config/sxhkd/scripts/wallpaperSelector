@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Poner tema al selector
 rofi_command="rofi -theme $HOME/.config/sxhkd/scripts/themes/wallpaperSelector.rasi"
 

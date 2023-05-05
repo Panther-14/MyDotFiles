@@ -2,7 +2,7 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-$HOME/.config/bspwm/scripts/initPanther
+$HOME/.config/bspwm/scripts/initEnviroment
 
 $HOME/.config/polybar/launch.sh
 

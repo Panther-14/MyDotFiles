@@ -32,7 +32,7 @@ element-icon, element-text, scrollbar {
 
 window {
   location : northwest;
-  width    : 280px;
+  width    : 380px;
   x-offset : 4px;
   y-offset : 40px;
 

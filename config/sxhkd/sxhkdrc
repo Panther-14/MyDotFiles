@@ -183,6 +183,7 @@ XF86HomePage
 # Power Off
 alt + F4
 	$HOME/.config/sxhkd/scripts/powermenu
+
 # Wallpaper Selector
 super + q
 	$HOME/.config/sxhkd/scripts/wallpaperSelector

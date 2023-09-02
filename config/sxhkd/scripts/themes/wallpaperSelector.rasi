@@ -26,6 +26,14 @@
   spacing : 0;
 }
 
+// Config //
+configuration {
+        modi:                        "drun";
+        show-icons:                  true;
+    drun-display-format:         "{name}";
+        font:                        "JetBrainsMono Nerd Font 10";
+}
+
 element-icon, element-text, scrollbar {
   cursor: pointer;
 }

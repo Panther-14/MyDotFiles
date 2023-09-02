@@ -1,0 +1,23 @@
+#!/bin/bash
+
+rofiConfig="$HOME/.config/sxhkd/scripts/themes/themeselect.rasi"
+
+# Obtener la ruta de la carpeta que contiene las imágenes
+folder="$HOME/Imágenes/Wallpapers"
+
+# Obtener la lista de imágenes en la carpeta (sin incluir subcarpetas)
+files=$(ls "$folder" | grep -E '\.jpg$|\.jpeg$|\.png$' | sort)
+
+# Mostrar la lista de imágenes en un menú rofi y capturar la selección del usuario
+RofiSel=$(echo "$files" | while read -r rfile; do
+    echo -en "$rfile\x00icon\x1f$folder/$rfile\n"
+done | rofi -dmenu -i -mesg "Seleccione una imagen:" -format d -config "$rofiConfig")
+
+choice="$folder/$(echo "$files" | sed -n "$RofiSel"p)"
+
+# Si el usuario selecciona una imagen, establecerla como fondo de pantalla
+if [ -n "$RofiSel" ]; then
+    feh --no-fehbg --bg-fill "$choice"
+    echo "$choice" >~/.wallpaper
+fi
+

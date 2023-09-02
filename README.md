@@ -38,9 +38,3 @@
  ╰─ Notification Daemon  -> Dunst
  
 ```
-
-## Wallpaper
-![](Wallpapers/archkali.png)
-
-## Rofi Theme
-![](Preview/IMG_simple-tokyonight.jpg)

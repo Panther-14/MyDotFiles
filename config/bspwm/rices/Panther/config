@@ -59,7 +59,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = Hack Nerd Font:fontformat=truetype:size=15:antialias=true;0
 font-2 = siji:pixelsize=10;1
 
-modules-left = xkeyboard battery memory cpu pulseaudio
+modules-left = xkeyboard battery memory cpu pulseaudio wallpaper
 modules-center = bspwm
 modules-right = temperature wlan eth date notif sysmenu
 
@@ -252,11 +252,11 @@ format-connected-prefix-offset = -6
 format-connected-underline = #9f78e1
 label-connected = %essid%
 
-format-disconnected =
+format-disconnected = 󰤭  Disconnected
 ;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname%  Disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
 
 ramp-signal-0 = 󰤯
 ramp-signal-1 = 󰤟
@@ -276,7 +276,7 @@ format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
-format-disconnected =
+format-disconnected = 󰈀  Disconnected
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -405,38 +405,6 @@ ramp-1 = 󰏈
 ramp-2 = 󰏈
 ramp-foreground = ${colors.foreground-alt}
 
-[module/shutdown]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-format-prefix = " "
-format-prefix-foreground = #ffffff
-
-;Power
-label-open = 
-label-open-foreground = ${colors.secondary}
-
-;Cancel
-label-close = 
-label-close-foreground = ${colors.secondary}
-label-separator = /
-label-separator-margin = 1
-label-separator-foreground = ${colors.foreground-alt}
-
-;Cerrar sesión
-menu-0-0 = 󰍃
-menu-0-0-exec = loginctl terminate-user $USER
-
-;Reiniciar
-menu-0-1 = 
-menu-0-1-exec = systemctl reboot
-
-;Apagar
-menu-0-2 = 
-menu-0-2-exec = systemctl poweroff
-
 [module/notif]
 type = custom/script
 exec = echo "  "
@@ -453,6 +421,11 @@ interval = 0.1
 [module/sysmenu]
 type = custom/text
 content = 
-
 content-foreground = ${colors.secondary}
-click-left = ~/.config/polybar/scripts/powermenu
+click-left = ~/.config/bspwm/scripts/powermenu
+
+[module/wallpaper]
+type = custom/text
+content = 󱠓 Wallpaper
+click-left = ~/.config/bspwm/scripts/wallModeSwitcher --update
+click-right = ~/.config/bspwm/scripts/wallModeSwitcher --selector

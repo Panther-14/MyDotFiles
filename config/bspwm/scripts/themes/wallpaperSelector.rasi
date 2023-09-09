@@ -31,10 +31,10 @@ element-icon, element-text, scrollbar {
 }
 
 window {
-  location : northeast;
+  location : center;
   width    : 280px;
   x-offset : 4px;
-  y-offset : 40px;
+  y-offset : 20px;
 
   background-color: @bg1;
   border: 1px;
@@ -45,7 +45,7 @@ window {
 inputbar {
   spacing  : 8px;
   padding  : 4px 8px;
-  children : [ icon-search, prompt ];
+  children : [ icon-search, entry ];
 
   background-color: @bg0;
 }

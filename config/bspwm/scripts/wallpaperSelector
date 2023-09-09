@@ -1,7 +1,9 @@
 #!/bin/bash
 
+CONFIG_FILE="$HOME/wallpaper.conf"
+
 # Poner tema al selector
-rofi_command="rofi -theme $HOME/.config/sxhkd/scripts/themes/wallpaperSelector.rasi"
+rofi_command="rofi -theme $HOME/.config/bspwm/scripts/themes/wallpaperSelector.rasi"
 
 # Obtener la ruta de la carpeta que contiene las imágenes
 folder="$HOME/Imágenes/Wallpapers"
@@ -23,6 +25,8 @@ selected_file=$(echo "$files" | sed -n "$choice"p)
 
 # Si el usuario selecciona una imagen, establecerla como fondo de pantalla
 if [ -n "$choice" ]; then
+  #sed -i "s/^modo=.*/modo=$nuevo_modo/" "$CONFIG_FILE"
+  sed -i "s|^ruta=.*|ruta=$selected_file|" "$CONFIG_FILE"
   feh --no-fehbg --bg-fill "$selected_file"
-  echo "$selected_file" > ~/.wallpaper
+  #echo "$selected_file" > ~/.wallpaper
 fi

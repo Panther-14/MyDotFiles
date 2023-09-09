@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Ruta al archivo de configuración
+CONFIG_FILE="$HOME/wallpaper.conf"
+
+# Comprueba si el archivo de configuración existe
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "El archivo de configuración wallpaper.conf no existe."
+  exit 1
+fi
+
+# Lee el modo y la ruta del archivo desde el archivo de configuración
+MODO=$(grep '^modo=' "$CONFIG_FILE" | cut -d'=' -f2)
+RUTA=$(grep '^ruta=' "$CONFIG_FILE" | cut -d'=' -f2)
+
+export MODO
+
+# Función para aplicar un fondo de pantalla animado
+aplicar_animado() {
+  # Llama a tu script de fondo de pantalla animado aquí
+  # Por ejemplo:
+  # /ruta/a/tu/script_fondo_animado.sh
+  echo "Aplicando fondo de pantalla animado..."
+}
+
+# Aplica el fondo de pantalla en función del modo
+case "$MODO" in
+  "estatico")
+    feh --no-fehbg --bg-fill $RUTA &
+    ;;
+  "aleatorio")
+    feh -z --no-fehbg --bg-fill $HOME/.config/bspwm/rices/$RICE_THEME/walls &
+    ;;
+  "animado")
+    aplicar_animado
+    ;;
+  *)
+    echo "Modo no válido en el archivo de configuración: $MODO"
+    exit 1
+    ;;
+esac

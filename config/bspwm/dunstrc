@@ -1,7 +1,7 @@
 [colors]
     background	= "#000000"
     foreground	= "#FFFFFF"
-#    frame_color = "#70D6FF"
+    frame_color = "#70D6FF"
 
 
 [global]
@@ -149,7 +149,7 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = google-chrome
+    browser = firefox
 
     # Align icons left/right/off
     icon_position = left
@@ -187,19 +187,19 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#FFB3DE"
     foreground = "#000000"
-#    frame_color = "#FFB3DE"
+    frame_color = "#FFB3DE"
     timeout = 2
 
 [urgency_normal]
     background = "#C7FF8F"
     foreground = "#000000"
-#   frame_color = "#C7FF8F"
+    frame_color = "#C7FF8F"
     timeout = 2
 
 [urgency_critical]
     background = "#FF4242"
     foreground = "#000000"
-#    frame_color = "#FF4242"
+    frame_color = "#FF4242"
     timeout = 2
 
 

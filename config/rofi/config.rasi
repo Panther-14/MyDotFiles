@@ -32,7 +32,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-	combi-modes: [window,drun,ssh];
+	combi-modes: [window,drun];
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
@@ -149,5 +149,4 @@ configuration {
       sorting-method:    "name";
   }*/
 }
-//@theme "/home/panther/.local/share/rofi/themes/rounded-purple-dark.rasi"
-@theme "/home/panther/.local/share/rofi/themes/simple-tokyonight.rasi"
+@theme "/home/panther/.local/share/rofi/themes/tokyonight.rasi"

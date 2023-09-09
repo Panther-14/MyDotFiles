@@ -1,10 +1,25 @@
 #! /bin/sh
 
-pgrep -x sxhkd > /dev/null || sxhkd &
+#
+# BSPWM CONFIG
+#
 
-$HOME/.config/bspwm/scripts/initEnviroment
+#
+# Rice variables
+#
+read -r RICE_THEME < $HOME/.config/bspwm/.rice
+export RICE_THEME
+rice_dir="$HOME/.config/bspwm/rices/$RICE_THEME"
 
-$HOME/.config/polybar/launch.sh
+#
+# Fix Java Applications
+#
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# 
+# BSPWM RULES
+#
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
@@ -20,3 +35,52 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+
+# 
+# Wallpaper Manager
+#
+
+# 
+# Rice Launching
+#
+
+proccesses=("picom" "polybar" "sxhkd" "dunst" "clipit")
+
+for proccess in "${proccesses[@]}"; do 
+  killall -q $proccess; sleep 0.1
+done
+
+# Network Manger Applet
+nm-applet &
+
+# Bluetooth Applet
+blueman-applet &
+
+# Clipboard Manager
+# killall -q clipit
+clipit &
+
+# Composite Manger
+picom & # --config $HOME/.config/picom/ &
+
+# Notification Daemon
+dunst -config $HOME/.config/bspwm/dunstrc &
+
+# Wallpaper
+$HOME/.config/bspwm/scripts/wallManager &
+#feh --no-fehbg --bg-fill $(cat ~/.wallpaper) &
+
+# Keyboard Layout
+setxkbmap -layout latam
+
+# Fix cursor
+xsetroot -cursor_name left_ptr
+
+# pgrep -x sxhkd > /dev/null || sxhkd &
+sxhkd -c $HOME/.config/bspwm/sxhkdrc &
+
+# $HOME/.config/polybar/launch.sh 
+# polybar -q example -c $rice_dir/config
+. $rice_dir/Theme.sh
+
+

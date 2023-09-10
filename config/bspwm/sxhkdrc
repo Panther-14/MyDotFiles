@@ -171,10 +171,12 @@ XF86AudioPlay
     #scrot -ozs -F $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
 
 alt + @Print
+  flameshot screen &
     #scrot -ozd 5 $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
     #flameshot gui -c -d 5000 -p ~/Screenshots
 
 ctrl + @Print
+  flameshot full &
     #scrot -ozu $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
     #flameshot gui -p ~/Screenshots
 

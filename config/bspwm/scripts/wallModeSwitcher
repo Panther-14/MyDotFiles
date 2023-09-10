@@ -4,22 +4,24 @@
 CONFIG_FILE="$HOME/wallpaper.conf"
 MODE=$(grep '^modo=' "$CONFIG_FILE" | cut -d'=' -f2)
 
-rofi_command="rofi -theme $HOME/.config/bspwm/scripts/themes/wallpaperSelector.rasi"
+rofi_command="rofi -theme $HOME/.config/bspwm/scripts/themes/powermenu.rasi"
 # Función para mostrar el menú de selección de modo
 seleccionar_modo() {
-  modo=$(echo -e "estatico\naleatorio\nanimado" | $rofi_command -dmenu -p "Selecciona el modo:")
+  modo=$(echo -e "estatico\naleatorio\nanimado" | $rofi_command -p "Modo Actual: $MODE" -dmenu)
 
   if [ -n "$modo" ]; then
     MODE=$modo
     # Actualiza el modo en el archivo de configuración
     sed -i "s/^modo=.*/modo=$modo/" "$CONFIG_FILE"
+
+    $HOME/.config/bspwm/scripts/wallManager
   fi
 }
 
 cambiar_fondo(){
   case "$MODE" in
     "aleatorio")
-      $HOME/.config/bspwm/scripts/wallManager
+      feh -z --no-fehbg --bg-fill $HOME/.config/bspwm/rices/$RICE_THEME/walls &
     ;;
     "estatico")
       $HOME/.config/bspwm/scripts/wallpaperSelect
@@ -40,3 +42,5 @@ case "$1" in
   *)
   ;;
 esac
+
+exit 0

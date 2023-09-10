@@ -37,10 +37,6 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 # 
-# Wallpaper Manager
-#
-
-# 
 # Rice Launching
 #
 
@@ -49,6 +45,17 @@ proccesses=("picom" "polybar" "sxhkd" "dunst" "clipit")
 for proccess in "${proccesses[@]}"; do 
   killall -q $proccess; sleep 0.1
 done
+
+# pgrep -x sxhkd > /dev/null || sxhkd &
+sxhkd -c $HOME/.config/bspwm/sxhkdrc &
+
+# $HOME/.config/polybar/launch.sh 
+# polybar -q example -c $rice_dir/config
+. $rice_dir/Theme.sh
+
+# Wallpaper
+$HOME/.config/bspwm/scripts/wallManager
+#feh --no-fehbg --bg-fill $(cat ~/.wallpaper) &
 
 # Network Manger Applet
 nm-applet &
@@ -66,21 +73,8 @@ picom & # --config $HOME/.config/picom/ &
 # Notification Daemon
 dunst -config $HOME/.config/bspwm/dunstrc &
 
-# Wallpaper
-$HOME/.config/bspwm/scripts/wallManager &
-#feh --no-fehbg --bg-fill $(cat ~/.wallpaper) &
-
 # Keyboard Layout
 setxkbmap -layout latam
 
 # Fix cursor
 xsetroot -cursor_name left_ptr
-
-# pgrep -x sxhkd > /dev/null || sxhkd &
-sxhkd -c $HOME/.config/bspwm/sxhkdrc &
-
-# $HOME/.config/polybar/launch.sh 
-# polybar -q example -c $rice_dir/config
-. $rice_dir/Theme.sh
-
-

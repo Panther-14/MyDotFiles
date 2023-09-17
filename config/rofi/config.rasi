@@ -149,4 +149,6 @@ configuration {
       sorting-method:    "name";
   }*/
 }
-@theme "/home/panther/.local/share/rofi/themes/tokyonight.rasi"
+//@theme "/home/panther/.local/share/rofi/themes/tokyonight.rasi"
+//@theme "/usr/share/rofi/themes/simple-tokyonight.rasi"
+@theme "/usr/share/rofi/themes/tokyonight.rasi"

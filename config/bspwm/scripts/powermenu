@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-rofi_command="rofi -theme $HOME/.config/bspwm/scripts/themes/powermenu.rasi"
+rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/powermenu.rasi"
 
 uptime=$(uptime -p | sed -e 's/up //g')
 
@@ -19,20 +19,22 @@ options="$shutdown\n$reboot\n$logout\n$lock\n$suspend"
 chosen="$(echo -e "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 0)"
 case $chosen in
     $shutdown)
-        systemctl poweroff
-        ;;
+      systemctl poweroff
+    ;;
     $reboot)
-        systemctl reboot
-        ;;
+      systemctl reboot
+    ;;
     $lock)
-        i3lock-fancy
-        ;;
+      i3lock-fancy
+    ;;
     $suspend)
-        mpc -q pause
-        amixer set Master mute
-        systemctl suspend
-        ;;
+      mpc -q pause
+      amixer set Master mute
+      systemctl suspend
+    ;;
     $logout)
-        loginctl terminate-user $USER
-        ;;
+      kill -9 -1
+      # pkill -USR1 -fu $USER
+      # loginctl terminate-user $USER
+    ;;
 esac

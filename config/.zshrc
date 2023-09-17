@@ -35,3 +35,6 @@ alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 alias cat='bat'
 alias s="kitty +kitten ssh"
+alias lord="clear && sudo su"
+alias neo="clear && neofetch"
+alias img="kitty +kitten icat"

@@ -423,10 +423,10 @@ interval = 0.1
 type = custom/text
 content = 
 content-foreground = ${colors.secondary}
-click-left = ~/.config/bspwm/scripts/powermenu
+click-left = powermenu
 
 [module/wallpaper]
 type = custom/text
 content = 󱠓 Wallpaper
-click-left = ~/.config/bspwm/scripts/wallModeSwitcher --update
-click-right = ~/.config/bspwm/scripts/wallModeSwitcher --selector
+click-left = WallpaperManager --update
+click-right = WallpaperManager --selector

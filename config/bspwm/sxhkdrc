@@ -16,7 +16,7 @@ super + @space
 
 # Rice Selector
 alt + @space
-  $HOME/.config/bspwm/scripts/RiceSelector
+  RiceSelector
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -188,8 +188,8 @@ XF86HomePage
 
 # Power Off
 alt + F4
-	$HOME/.config/bspwm/scripts/powermenu
+	powermenu
 
 # Wallpaper Selector
 super + q
-	$HOME/.config/bspwm/scripts/wallModeSwitcher --update
+	WallpaperManager --update

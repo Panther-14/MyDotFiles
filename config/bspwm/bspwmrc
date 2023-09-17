@@ -9,6 +9,9 @@
 #
 read -r RICE_THEME < $HOME/.config/bspwm/.rice
 export RICE_THEME
+
+PATH="$HOME/.config/bspwm/scripts:$PATH"
+
 rice_dir="$HOME/.config/bspwm/rices/$RICE_THEME"
 
 #
@@ -54,7 +57,7 @@ sxhkd -c $HOME/.config/bspwm/sxhkdrc &
 . $rice_dir/Theme.sh
 
 # Wallpaper
-$HOME/.config/bspwm/scripts/wallManager
+$HOME/.config/bspwm/scripts/WallpaperManager --init
 #feh --no-fehbg --bg-fill $(cat ~/.wallpaper) &
 
 # Network Manger Applet

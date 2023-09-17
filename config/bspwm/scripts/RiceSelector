@@ -4,7 +4,7 @@
 #  ╩╚═╩╚═╝╚═╝  ╚═╝╚═╝╩═╝╚═╝╚═╝ ╩ ╚═╝╩╚═  - z0mbi3.zk@protonmail.com
 
 bspwm_dir="$HOME/.config/bspwm"
-rofi_command="rofi -dmenu -theme $bspwm_dir/scripts/themes/RiceSelector.rasi"
+rofi_command="rofi -dmenu -theme $bspwm_dir/assets/themes/RiceSelector.rasi"
 read -r current_rice < "$HOME"/.config/bspwm/.rice
 
 # List rices

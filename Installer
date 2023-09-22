@@ -1,0 +1,126 @@
+#!/bin/bash
+
+# Verifica que el usuario no sea root
+if [ "$(whoami)" == "root" ]; then
+  exit 1
+fi
+
+# Actualiza la base de datos de paquetes y el sistema
+# sudo pacman -Syu
+
+# Lista de paquetes a instalar
+packages=(
+  bat  bspwm  clipit  dunst  feh  firefox  flameshot
+  flatpak  git  git-lfs  htop  i3lock-fancy-git  kitty  lolcat
+  lsd  lxappearance  mdcat  neofetch  neovim  onefetch  picom
+  playerctl  pokemon-colorscripts-git  polybar  ranger  rofi
+  sxhkd  thunar  thunar-volman  wget  xorg-xsetroot  xorg-xinput vlc zsh
+)
+
+extra_packages=(
+  ani-cli  arandr  gparted  lftp  nano
+  noto-fonts  noto-fonts-cjk  noto-fonts-emoji
+  noto-fonts-extra   scrcpy  sddm  sddm-theme-corners-git
+  sddm-chinese-painting-theme ttf-dejavu  unzip
+  urbanlifestyle-sddm-theme  vim  zip
+)
+
+# Instalar paru si no está instalado
+install_paru(){
+  if ! command -v paru &>/dev/null; then
+      echo "Instalando paru..."
+      git clone https://aur.archlinux.org/paru.git
+      cd paru
+      makepkg -si
+      cd ..
+      rm -rf paru
+  fi
+}
+
+# Instala los paquetes
+install_packages(){
+  echo "Instalando o actualizando paquetes..."
+  for package in "${packages[@]}"
+  do
+    # Verifica si el paquete está instalado
+    if ! paru -Q "$package" >/dev/null; then
+      paru -S "$package" --noconfirm
+    else
+      echo "Paquete ${package} instalado"
+    fi
+  done
+}
+
+# Función para instalar el repositorio de blackarch
+install_blackarch_repo(){
+  # Instalando Repositorio de Blackarch
+  curl -O https://blackarch.org/strap.sh
+  chmod +x strap.sh
+  sudo ./strap.sh
+}
+
+copy_files(){
+  cp -r ~/Github/MyDotFiles/config/bspwm ~/.config/
+  cp -r ~/Github/MyDotFiles/config/neofetch ~/.config/
+  cp -r ~/Github/MyDotFiles/config/rofi ~/.config/
+  cp -r ~/Github/MyDotFiles/config/kitty/ ~/.config/
+  cp -r ~/Github/MyDotFiles/config/jgmenu/ ~/.config/
+  cp -r ~/Github/MyDotFiles/config/ranger/ ~/.config/
+  cp ~/Github/MyDotFiles/config/wallpaper.conf ~/.config/
+  cp ~/Github/MyDotFiles/config/.zshrc ~/
+}
+
+# Instalar
+install(){
+  # Creando carpeta de Dotfiles
+  cd
+  mkdir Github
+  cd Github/
+  git clone --depth=1 https://github.com/Panther-14/MyDotFiles.git
+  
+  # Instalr paru como AUR helper
+  install_paru
+
+  # Instalar o actualizar paquetes
+  install_packages
+
+  # Cambia el shell del usuario actual a zsh
+  chsh -s "$(which zsh)"
+
+  # Instalar Oh My Zsh para el usuario actual
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  # Instalar plugins zsh
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+  sudo mkdir /usr/share/zsh-sudo
+  cd /usr/share/zsh-sudo
+  sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+
+  # Establecer la zsh del usuario root
+  # Copiamos configuración
+  copy_files
+
+  # Configuramos el Tema de Rofi
+  rofi-theme-selector
+
+  # Removiendo Repositorio
+  rm -rf ~/Github
+
+  # Mensaje de Instalado
+  echo "Proceso de instalación y configuración completado."
+  notify-send "BSPWM INSTALADO"
+}
+
+# <---------------------------------------Instalación--------------------------------------->
+
+case "$1" in
+  --black)
+    install_blackarch_repo
+    install
+  ;;
+  --white|*)
+    install
+  ;;
+esac

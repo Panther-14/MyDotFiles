@@ -133,14 +133,6 @@ super + {Left,Down,Up,Right}
 #
 
 # Subir volumen con teclas de volumen
-#XF86AudioRaiseVolume
-#    amixer -q sset Master 5%+
-
-# Bajar volumen con teclas de volumen
-#XF86AudioLowerVolume
-#    amixer -q sset Master 5%-
-
-# Subir volumen con teclas de volumen
 XF86AudioRaiseVolume
     pactl set-sink-volume @DEFAULT_SINK@ +5%
 
@@ -167,24 +159,17 @@ XF86AudioPlay
 
 # Screenshots
 @Print
-  flameshot gui &
-    #scrot -ozs -F $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
+  flameshot gui & # --path $HOME/Imágenes/Screenshots &
 
 alt + @Print
-  flameshot screen &
-    #scrot -ozd 5 $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
-    #flameshot gui -c -d 5000 -p ~/Screenshots
+  flameshot screen --path $HOME/Imágenes/Screenshots &
 
 ctrl + @Print
-  flameshot full &
-    #scrot -ozu $HOME/Imágenes/Screenshots/%Y-%m-%d-T-%H-%M-%S.png
-    #flameshot gui -p ~/Screenshots
-
+  flameshot full --path $HOME/Imágenes/Screenshots &
 
 # Navegador
 XF86HomePage
    firefox
-#   com.google.Chrome
 
 # Power Off
 alt + F4
@@ -193,3 +178,9 @@ alt + F4
 # Wallpaper Selector
 super + q
 	WallpaperManager --update
+
+# Clic derecho menu
+~button3
+  xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run
+
+#

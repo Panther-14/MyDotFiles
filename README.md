@@ -52,3 +52,6 @@
 ![](./Preview/pre_01.png)
 
 ![](./Preview/pre_02.png)
+
+## Inspired by
+- [gh0stzk](https://github.com/gh0stzk/dotfiles.git), [s4vitar](https://github.com/s4vitar) [Syndrizzle](https://github.com/Syndrizzle/hotfiles).

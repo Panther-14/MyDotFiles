@@ -34,33 +34,47 @@ aplicar_aleatorio() {
   feh -z --no-fehbg --bg-fill $HOME/.config/bspwm/rices/$RICE_THEME/walls &
 }
 
+function get_icons(){
+  case "$1" in
+    "") echo "Estatico"
+    ;;
+    "") echo "Aleatorio"
+    ;;
+    "󰤺") echo "Animado"
+    ;;
+  esac
+}
 #
 # Mode Switcher
 #
+estatico="Estatico"
+animado="Animado"
+aleatorio="Aleatorio"
 
+options="\n\n󰤺\n"
 # Función para mostrar el menú de selección de modo
 select_mode() {
-  rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/powermenu.rasi"
-  mode=$(echo -e "estatico\naleatorio\nanimado" | $rofi_command -p "Modo Actual: $MODO" -dmenu)
+  rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/wallpaperMode.rasi"
+  mode=$(echo -e $options | $rofi_command -p "Modo Actual: $MODO" -dmenu -selected-row 0)
 
   if [ -n "$mode" ]; then
-    MODO=$mode
+    MODO=$(get_icons $mode)
     set_wallpaper
     # Actualiza el modo en el archivo de configuración
-    sed -i "s/^modo=.*/modo=$mode/" "$CONFIG_FILE"
+    sed -i "s/^modo=.*/modo=$MODO/" "$CONFIG_FILE"
   fi
 }
 
 # Función para llamar al selector de fondos
 wallpaper_switcher(){
   case "$MODO" in
-    "aleatorio")
+    $aleatorio)
       aplicar_aleatorio
     ;;
-    "estatico")
+    $estatico)
       WallpaperSwitcher --fancy
     ;;
-    "animado")
+    $animado)
       notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Not Implemented yet"
     ;;
     *)
@@ -71,13 +85,13 @@ wallpaper_switcher(){
 # Aplica el fondo de pantalla en función del modo
 set_wallpaper(){
   case "$MODO" in
-    "estatico")
+    $estatico)
       aplicar_estatico
       ;;
-    "aleatorio")
+    $aleatorio)
       aplicar_aleatorio
       ;;
-    "animado")
+    $animado)
       aplicar_animado
       ;;
     *)

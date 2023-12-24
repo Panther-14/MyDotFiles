@@ -17,6 +17,22 @@ ZSH_THEME="bira"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo)
 
 source $ZSH/oh-my-zsh.sh
+#
+# Custom Functions
+#
+
+# Settarget
+
+function settarget(){
+	if [ $# -eq 1 ]; then
+	echo $1 > ~/.config/bin/target
+	elif [ $# -gt 2 ]; then
+	echo "settarget [IP] [NAME] | settarget [IP]"
+	else
+	echo $1 $2 > ~/.config/bin/target
+	fi
+}
+
 
 #
 # User configuration
@@ -38,3 +54,4 @@ alias s="kitty +kitten ssh"
 alias lord="clear && sudo su"
 alias neo="clear && neofetch"
 alias img="kitty +kitten icat"
+alias rb="sudo modprobe -r btusb && sudo modprobe btusb"

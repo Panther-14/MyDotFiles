@@ -1,3 +1,3 @@
 #!/bin/bash
 
-polybar -q example -c $rice_dir/config &
+polybar -q panther-bar -c $rice_dir/config.ini &

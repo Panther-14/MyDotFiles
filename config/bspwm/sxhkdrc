@@ -132,55 +132,52 @@ super + {Left,Down,Up,Right}
 # CUSTOM
 #
 
-# Subir volumen con teclas de volumen
-XF86AudioRaiseVolume
-    pactl set-sink-volume @DEFAULT_SINK@ +5%
+#
+# Sound Control
+#
 
-# Bajar volumen con teclas de volumen
-XF86AudioLowerVolume
-    pactl set-sink-volume @DEFAULT_SINK@ -5%
+# Volume Control
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    VolumeManager {--increase,--decrease,--toggle}
 
-# Mute
-XF86AudioMute
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
+# Audio Control
+XF86Audio{Prev,Next,Play,Stop}
+	playerctl {previous,next,play-pause,stop}
 
-# Audio Prev
-XF86AudioPrev
-    playerctl previous
-
-# Audio Next
-XF86AudioNext
-    playerctl next
-
-# Audio Play-Pause
-XF86AudioPlay
-    playerctl play-pause
-
-
+#
 # Screenshots
+#
+
+# Crop Screen
 @Print
   flameshot gui & # --path $HOME/Imágenes/Screenshots &
 
+# Only one Screen
 alt + @Print
   flameshot screen --path $HOME/Imágenes/Screenshots &
 
+# Entire Desktop
 ctrl + @Print
   flameshot full --path $HOME/Imágenes/Screenshots &
 
-# Navegador
+#
+# Accesibility
+#
+
+# WebBrowser
 XF86HomePage
    firefox
 
-# Power Off
+# Power Menu
 alt + F4
-	powermenu
+	PowerMenu
 
 # Wallpaper Selector
-super + q
-	WallpaperManager --update
+super + {shift + q, q}
+	WallpaperManager {--selector,--update}
 
-# Clic derecho menu
+# Right Clic Menu
 ~button3
-  xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run
+	xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run 
 
 #

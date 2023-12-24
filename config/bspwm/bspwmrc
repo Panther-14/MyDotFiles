@@ -24,7 +24,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # BSPWM RULES
 #
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+#bspc monitor -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         2
 bspc config window_gap          12
@@ -38,32 +38,33 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a VisualBoyAdvance-M state=floating manage=on layer=normal follow=on
 
 #
 # BSPWM COLORS
 #
  
-fibspc config normal_border_color "#033382"
+bspc config normal_border_color "#033382"
 bspc config active_border_color "#46bfee"
 bspc config focused_border_color "#8f69c2"
 bspc config presel_feedback_color "#00a832"
 
 # Follow pointer
-# bspc config focus_follows_pointer true
+bspc config focus_follows_pointer true
 
 #
 # WORKSPACES
 #
 
-#workspaces() {
-#	name=1
-#	for monitor in $(bspc query -M); do
-#		bspc monitor "${monitor}" -n "$name" -d '1' '2' '3' '4' '5' '6'
-#		(( name++ ))
-#	done
-#}
+workspaces() {
+	name=1
+	for monitor in $(bspc query -M); do
+	bspc monitor "${monitor}" -n "$name" -d '1' '2' '3' '4' '5' '6'
+		(( name++ ))
+	done
+}
 
-#workspaces
+workspaces
 
 # 
 # Rice Launching
@@ -103,6 +104,10 @@ setxkbmap -layout latam
 
 # Fix cursor
 xsetroot -cursor_name left_ptr
+# Fix flatpak cursor
+flatpak --user override --filesystem=/home/$USER/.icons/:ro
+
+flatpak --user override --filesystem=/usr/share/icons/:ro
 
 # Enable touchpad one touch clic
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1

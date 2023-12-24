@@ -53,5 +53,40 @@
 
 ![](./Preview/pre_02.png)
 
+# Setup
+## 💾 Installation:
+The installer only works for **ARCH** Linux, and based distros.
+
+Open a terminal in HOME
+
+First download the installer
+```bash
+curl https://raw.githubusercontent.com/Panther-14/MyDotFiles/main/Installer -o $HOME/Installer
+```
+Now give it execute permissions
+```bash
+chmod +x Installer
+```
+
+- Finally run the installer
+```bash
+./Installer
+```
+or
+```bash 
+./Installer --white
+```
+
+- If you want to install with blackarch repos
+```bash
+./Installer --black
+```
+*Once you see the oh my zsh prompt enter the **exit** command to continue with the installation*
+
+> **NOTE**
+>
+> The --white argument does the same thing as no argument.
+>
+
 ## Inspired by
-- [gh0stzk](https://github.com/gh0stzk/dotfiles.git), [s4vitar](https://github.com/s4vitar) [Syndrizzle](https://github.com/Syndrizzle/hotfiles).
+- [gh0stzk](https://github.com/gh0stzk/dotfiles), [s4vitar](https://github.com/s4vitar) [Syndrizzle](https://github.com/Syndrizzle/hotfiles).

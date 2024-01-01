@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 #Path para pip python
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.local/bin:~/.local/share/pipx/venvs
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -25,11 +25,11 @@ source $ZSH/oh-my-zsh.sh
 
 function settarget(){
 	if [ $# -eq 1 ]; then
-	echo $1 > ~/.config/bin/target
+	echo $1 > ~/.config/bspwm/scripts/target
 	elif [ $# -gt 2 ]; then
 	echo "settarget [IP] [NAME] | settarget [IP]"
 	else
-	echo $1 $2 > ~/.config/bin/target
+	echo $1 $2 > ~/.config/bspwm/scripts/target
 	fi
 }
 

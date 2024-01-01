@@ -51,7 +51,7 @@ estatico="Estatico"
 animado="Animado"
 aleatorio="Aleatorio"
 
-options="\n\n󰤺\n"
+options="\n\n󰤺"
 # Función para mostrar el menú de selección de modo
 select_mode() {
   rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/wallpaperMode.rasi"

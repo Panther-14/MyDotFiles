@@ -67,16 +67,16 @@ super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous window in the current desktop
-super + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
+#super + {_,shift + }c
+#	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+#super + bracket{left,right}
+#	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
 super + {grave,Tab}
@@ -138,7 +138,7 @@ super + {Left,Down,Up,Right}
 
 # Volume Control
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-    VolumeManager {--increase,--decrease,--toggle}
+  VolumeManager {--increase,--decrease,--toggle}
 
 # Audio Control
 XF86Audio{Prev,Next,Play,Stop}
@@ -166,7 +166,15 @@ ctrl + @Print
 
 # WebBrowser
 XF86HomePage
-   firefox
+   AppLanucher --browser
+
+# Screen Key
+super + p
+  ScreenManager
+
+# Help Key
+super + F1
+  kitty
 
 # Power Menu
 alt + F4
@@ -180,4 +188,3 @@ super + {shift + q, q}
 ~button3
 	xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run 
 
-#

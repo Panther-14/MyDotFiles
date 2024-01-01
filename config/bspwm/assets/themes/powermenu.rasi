@@ -18,12 +18,13 @@ configuration {
 
 * {
     font:                        "Hack Nerd Font 10";
-    background:                  #11092D;
-    background-alt:              #281657;
+    background:                  #24283b;
+    background-alt:              #3b4261;
     foreground:                  #FFFFFF;
-    selected:                    #DF5296;
-    active:                      #6E77FF;
-    urgent:                      #8E3596;
+    selected:                    #6E77FF;
+    active:                      #56b6c2;
+    urgent:                      #56b596;
+  
 }
 /*
 USE_BUTTONS=YES

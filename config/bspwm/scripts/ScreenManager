@@ -1,0 +1,46 @@
+#!/usr/bin/bash
+
+IMG="$HOME/.config/bspwm/assets/a.png"
+
+duplicate_screen(){
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Duplicar pantalla"
+  mons -d
+}
+
+extend_screen(){
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Extender pantalla"
+  mons -e right
+}
+
+primary_only(){
+  notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Pantalla primaria solamente"
+  mons -o
+}
+
+secondary_only(){
+  notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Pantalla secundaria solamente"
+  mons -s
+}
+
+rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/wallpaperMode.rasi"
+
+duplicate="󰍺 "
+extend="󰍹 󰍹 "
+primary_only="󰍹 󰶐 "
+secondary_only="󰶐 󰍹 "
+
+options="$duplicate\n$extend\n$primary_only\n$secondary_only"
+
+chosen="$(echo -e "$options" | $rofi_command -p "Monitores" -dmenu -selected-row 0)"
+case $chosen in
+    $duplicate) duplicate_screen
+    ;;
+    $extend) extend_screen
+    ;;
+    $primary_only) primary_only
+    ;;
+    $secondary_only) secondary_only
+    ;;
+    *) 
+    ;;
+esac

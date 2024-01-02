@@ -49,9 +49,9 @@
 - **Wallpaper Changer**: Super + q changes bethween different wallpapers in the actual rice or you can chose your favorite.
 
 # Preview
-![](./misc/Preview/pre_01.png)
+![](./local/Preview/pre_01.png)
 
-![](./misc/Preview/pre_02.png)
+![](./local/Preview/pre_02.png)
 
 # Setup
 ## 💾 Installation:

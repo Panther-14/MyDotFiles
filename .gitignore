@@ -1,4 +1,16 @@
+#
+#
+#
 .dotfiles
+
+#
+# 
+#
+.local/*
+
+#
+#
+#
 .config/*
 !.config/bspwm
 !.config/eww
@@ -9,3 +21,8 @@
 !.config/rofi
 !.config/wallpaper.conf
 
+#
+#
+#
+!.zshrc
+!.Xdefaults

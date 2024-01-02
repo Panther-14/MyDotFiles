@@ -4,11 +4,6 @@
 .dotfiles
 
 #
-# 
-#
-!.local/*
-
-#
 #
 #
 .config/*

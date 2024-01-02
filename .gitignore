@@ -1,1 +1,12 @@
 .dotfiles
+.local/*
+.config/*
+!.config/bspwm
+!.config/eww
+!.config/jgmenu
+!.config/kitty
+!.config/neofetch
+!.config/ranger
+!.config/rofi
+!.config/wallpaper.conf
+

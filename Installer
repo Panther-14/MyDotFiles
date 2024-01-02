@@ -60,14 +60,14 @@ install_blackarch_repo(){
 }
 
 copy_files(){
-  cp -r ~/Github/MyDotFiles/config/bspwm ~/.config/
-  cp -r ~/Github/MyDotFiles/config/neofetch ~/.config/
-  cp -r ~/Github/MyDotFiles/config/rofi ~/.config/
-  cp -r ~/Github/MyDotFiles/config/kitty/ ~/.config/
-  cp -r ~/Github/MyDotFiles/config/jgmenu/ ~/.config/
-  cp -r ~/Github/MyDotFiles/config/ranger/ ~/.config/
-  cp ~/Github/MyDotFiles/config/wallpaper.conf ~/.config/
-  cp ~/Github/MyDotFiles/config/.zshrc ~/
+  cp -r ~/Github/MyDotFiles/.config/bspwm ~/.config/
+  cp -r ~/Github/MyDotFiles/.config/neofetch ~/.config/
+  cp -r ~/Github/MyDotFiles/.config/rofi ~/.config/
+  cp -r ~/Github/MyDotFiles/.config/kitty/ ~/.config/
+  cp -r ~/Github/MyDotFiles/.config/jgmenu/ ~/.config/
+  cp -r ~/Github/MyDotFiles/.config/ranger/ ~/.config/
+  cp ~/Github/MyDotFiles/.config/wallpaper.conf ~/.config/
+  cp ~/Github/MyDotFiles/.config/.zshrc ~/
 }
 
 # Instalar
@@ -94,11 +94,6 @@ install(){
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-  sudo mkdir /usr/share/zsh-sudo
-  cd /usr/share/zsh-sudo
-  sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
-
-  # Establecer la zsh del usuario root
   # Copiamos configuración
   copy_files
 

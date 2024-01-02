@@ -49,9 +49,9 @@
 - **Wallpaper Changer**: Super + q changes bethween different wallpapers in the actual rice or you can chose your favorite.
 
 # Preview
-![](./Preview/pre_01.png)
+![](./misc/Preview/pre_01.png)
 
-![](./Preview/pre_02.png)
+![](./misc/Preview/pre_02.png)
 
 # Setup
 ## 💾 Installation:
@@ -83,10 +83,10 @@ or
 ```
 *Once you see the oh my zsh prompt enter the **exit** command to continue with the installation*
 
-> **NOTE**
+> [!TIP]
 >
 > The --white argument does the same thing as no argument.
 >
 
 ## Inspired by
-- [gh0stzk](https://github.com/gh0stzk/dotfiles), [s4vitar](https://github.com/s4vitar) [Syndrizzle](https://github.com/Syndrizzle/hotfiles).
+- [gh0stzk](https://github.com/gh0stzk), [s4vitar](https://github.com/s4vitar), [Syndrizzle](https://github.com/Syndrizzle).

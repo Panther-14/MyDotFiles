@@ -83,8 +83,8 @@ copy_files(){
   cp -r ~/Github/MyDotFiles/.local/share/rofi -d ~/.local/share/
 }
 
-function config{
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+config(){
+  git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
 bare_install(){

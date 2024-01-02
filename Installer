@@ -68,6 +68,37 @@ copy_files(){
   cp -r ~/Github/MyDotFiles/.config/ranger/ ~/.config/
   cp ~/Github/MyDotFiles/.config/wallpaper.conf ~/.config/
   cp ~/Github/MyDotFiles/.config/.zshrc ~/
+  
+  [ ! -d ~/.local/share/fonts ] && mkdir -p ~/.local/share/fonts
+  [ ! -d ~/.local/share/icons ] && mkdir -p ~/.local/share/icons
+  [ ! -d ~/.local/share/themes ] && mkdir -p ~/.local/share/themes
+  [ ! -d ~/.local/share/rofi ] && mkdir -p ~/.local/share/rofi
+
+  mkdir ~/.local/share/fonts/Hack
+  unzip ~/Github/MyDotFiles/.local/share/fonts/HackNerdFont.zip -d ~/.local/share/fonts/Hack
+  tar xfv ~/Github/MyDotFiles/.local/share/icons/Simp1e-Tokyo-Night-Storm.tgz
+  mv ~/Github/MyDotFiles/.local/share/icons/Simp1e-Tokyo-Night-Storm ~/.local/share/icons
+  unzip ~/Github/MyDotFiles/.local/share/icons/Tokyonight-Dark-Icons.zip -d ~/.local/share/icons
+  unzip ~/Github/MyDotFiles/.local/share/themes/Tokyonight-Storm-B.zip -d ~/.local/share/themes
+  cp -r ~/Github/MyDotFiles/.local/share/rofi -d ~/.local/share/
+}
+
+function config{
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
+bare_install(){
+  git clone --bare https://github.com/Panther-14/MyDotFiles.git $HOME/.dotfiles
+  mkdir -p .config-backup
+  config checkout
+  if [ $? = 0 ]; then
+    echo "Checked out config.";
+  else
+    echo "Backing up pre-existing dot files.";
+    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
+  fi;
+  config checkout
+  config config status.showUntrackedFiles no
 }
 
 # Instalar
@@ -111,6 +142,9 @@ install(){
 # <---------------------------------------Instalación--------------------------------------->
 
 case "$1" in
+  --bare)
+    bare_install
+  ;;
   --black)
     install_blackarch_repo
     install

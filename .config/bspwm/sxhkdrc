@@ -6,9 +6,9 @@
 super + Return
 	kitty
 
-# program launcher
+# Scratchpad
 super + r
-	rofi -show run
+	tdrop -a -w 50% -h 55% -y 15% -x 15% --class scratch kitty --class=scratch
 
 # rofi program launcher
 super + @space
@@ -142,7 +142,8 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
 
 # Audio Control
 XF86Audio{Prev,Next,Play,Stop}
-	playerctl {previous,next,play-pause,stop}
+  MediaControl --{previous,next,toggle,stop}
+	#playerctl {previous,next,play-pause,stop}
 
 #
 # Screenshots
@@ -166,7 +167,7 @@ ctrl + @Print
 
 # WebBrowser
 XF86HomePage
-   AppLanucher --browser
+   firefox
 
 # Screen Key
 super + p
@@ -185,6 +186,9 @@ super + {shift + q, q}
 	WallpaperManager {--selector,--update}
 
 # Right Clic Menu
+#~button3
+#	xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run 
 ~button3
-	xqp 0 $(xdo id -N Bspwm -n root) && jgmenu_run 
+  xqp 0 $(xdo id -N Bspwm -n root) && jgmenu --csv-file=~/.config/jgmenu/prepend.txt --config-file=~/.config/jgmenu/jgmenurc
+
 

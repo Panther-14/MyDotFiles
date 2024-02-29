@@ -4,6 +4,11 @@
 # BSPWM CONFIG
 #
 
+MPD_HOST=localhost
+MPD_PORT=8888
+
+export MPD_HOST
+export MPD_PORT
 #
 # Rice variables
 #
@@ -39,7 +44,9 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a VisualBoyAdvance-M state=floating manage=on layer=normal follow=on
-bspc rule -a firefox desktop='^2' follow=on
+bspc rule -a scratch sticky=on state=floating focus=on
+bspc rule -a FBReader state=floating
+bspc rule -a vlc state=floating
 
 #
 # BSPWM COLORS

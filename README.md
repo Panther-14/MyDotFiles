@@ -1,14 +1,5 @@
 # MyDotFiles
 
-## Color Palette
-
-|Use           |Color  |
-|--------------|-------|
-|Pac Man       |#fdff00|
-|Ghost Occupied|#8f69c2|
-|Ghost Urgent  |#bd0d0d|
-|Ghost Empty   |#46bfee|
-
 # Info
 
 ```mint
@@ -49,9 +40,9 @@
 - **Wallpaper Changer**: Super + q changes bethween different wallpapers in the actual rice or you can chose your favorite.
 
 # Preview
-![](./local/Preview/pre_01.png)
+![](./.local/Preview/pre_01.png)
 
-![](./local/Preview/pre_02.png)
+![](./.local/Preview/pre_02.png)
 
 # Setup
 ## 💾 Installation:

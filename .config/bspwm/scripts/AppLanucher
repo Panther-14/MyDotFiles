@@ -13,13 +13,23 @@ help_command(){
 
 case "$1" in
   --browser)
-    firefox;;
+    firefox
+  ;;
   --riceselector)
-    RiceSelector;;
+    RiceSelector
+  ;;
   --messages)
-    ferdium;;
+    ferdium
+  ;;
   --music)
-    vlc;;
+    vlc
+  ;;
+  --terminal)
+    kitty -d ~
+  ;;
   --help|*)
-    help_command;;
+    help_command
+  ;;
 esac
+
+exit 0

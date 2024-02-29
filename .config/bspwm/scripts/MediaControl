@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+	case $1 in 
+		--next)
+			mpc -q next
+			;;
+		--previous)
+			mpc -q prev
+			;;
+		--toggle)
+			mpc -q toggle
+			;;
+		--stop)
+			mpc -q stop
+			;;
+esac 2>/dev/null

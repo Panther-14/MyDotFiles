@@ -14,21 +14,22 @@ packages=(
   flatpak  git  git-lfs  htop  i3lock-fancy-git  kitty  lolcat
   lsd  lxappearance  mdcat  neofetch  neovim  onefetch  picom
   playerctl  pokemon-colorscripts-git  polybar  ranger  rofi
-  sxhkd  thunar  thunar-volman  wget  xorg-xsetroot  xorg-xinput vlc zsh
+  sxhkd  thunar  thunar-volman  wget  xorg-xsetroot  xorg-xinput vlc zsh unzip
+  xrandr sddm
 )
 
 extra_packages=(
   ani-cli  arandr  gparted  lftp  nano
   noto-fonts  noto-fonts-cjk  noto-fonts-emoji
-  noto-fonts-extra   scrcpy  sddm  sddm-theme-corners-git
-  sddm-chinese-painting-theme ttf-dejavu  unzip
+  noto-fonts-extra   scrcpy  sddm-theme-corners-git
+  sddm-chinese-painting-theme ttf-dejavu
   urbanlifestyle-sddm-theme  vim  zip
 )
 
 # Instalar paru si no está instalado
 install_paru(){
   if ! command -v paru &>/dev/null; then
-      echo "Instalando paru..."
+      echo "\n>> Instalando paru...\n"
       git clone https://aur.archlinux.org/paru.git
       cd paru
       makepkg -si
@@ -39,14 +40,14 @@ install_paru(){
 
 # Instala los paquetes
 install_packages(){
-  echo "Instalando o actualizando paquetes..."
+  echo "\n>> Instalando o actualizando paquetes...\n"
   for package in "${packages[@]}"
   do
     # Verifica si el paquete está instalado
     if ! paru -Q "$package" >/dev/null; then
-      paru -S "$package" --noconfirm
+      paru -S --needed "$package" --noconfirm
     else
-      echo "Paquete ${package} instalado"
+      echo "\nPaquete ${package} instalado"
     fi
   done
 }
@@ -54,12 +55,15 @@ install_packages(){
 # Función para instalar el repositorio de blackarch
 install_blackarch_repo(){
   # Instalando Repositorio de Blackarch
+  echo "\n>> Instalando repositorio de BlackArch...\n"
   curl -O https://blackarch.org/strap.sh
   chmod +x strap.sh
   sudo ./strap.sh
 }
 
 copy_files(){
+  echo "\n>> Copiando archivos de configuración...\n"
+
   cp -r ~/Github/MyDotFiles/.config/bspwm ~/.config/
   cp -r ~/Github/MyDotFiles/.config/neofetch ~/.config/
   cp -r ~/Github/MyDotFiles/.config/rofi ~/.config/
@@ -104,38 +108,44 @@ bare_install(){
 # Instalar
 install(){
   # Creando carpeta de Dotfiles
+  echo "\n>> Clonando Repositorio\n"
   cd
   mkdir Github
   cd Github/
   git clone --depth=1 https://github.com/Panther-14/MyDotFiles.git
   
-  # Instalr paru como AUR helper
+  # Instalar paru como AUR helper
   install_paru
 
   # Instalar o actualizar paquetes
   install_packages
 
   # Cambia el shell del usuario actual a zsh
+  echo "\n>> Cambiando shell...\n" 
   chsh -s "$(which zsh)"
 
   # Instalar Oh My Zsh para el usuario actual
+  echo "\n>> Instalando Oh My Zsh...\n"
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   # Instalar plugins zsh
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight
+  echo "\n>> Instalando plugins omz...\n"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
   # Copiamos configuración
   copy_files
 
   # Configuramos el Tema de Rofi
+  echo "\n>> Seleccionar tema para rofi...\n"
   rofi-theme-selector
 
   # Removiendo Repositorio
+  ecoh "\n>> Limpiando archivos...\n"
   rm -rf ~/Github
 
   # Mensaje de Instalado
-  echo "Proceso de instalación y configuración completado."
+  echo "\n>> Proceso de instalación y configuración completado.\n"
   notify-send "BSPWM INSTALADO"
 }
 
@@ -146,10 +156,12 @@ case "$1" in
     bare_install
   ;;
   --black)
+    echo "\n>> Instalación BlackArch seleccionada.\n"
     install_blackarch_repo
     install
   ;;
   --white|*)
+    echo "\n>> Instalación base seleccionada.\n"
     install
   ;;
 esac

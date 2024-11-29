@@ -1,0 +1,6 @@
+[submodule "bspwm-dotfiles"]
+	path = bspwm-dotfiles
+	url = https://github.com/Panther-14/bspwm-dotfiles.git
+[submodule "Hyprdots"]
+	path = Hyprdots
+	url = https://github.com/Panther-14/Hyprdots.git

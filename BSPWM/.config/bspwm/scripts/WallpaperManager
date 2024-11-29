@@ -1,0 +1,141 @@
+#!/bin/bash
+
+# Ruta al archivo de configuración
+CONFIG_FILE="$HOME/.config/wallpaper.conf"
+IMG="$HOME/.config/bspwm/assets/a.png"
+
+# Comprueba si el archivo de configuración existe
+if [ ! -f "$CONFIG_FILE" ]; then
+  notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "El archivo de configuración wallpaper.conf no existe."
+  exit 1
+fi
+
+# Lee el modo y la ruta del archivo desde el archivo de configuración
+MODO=$(grep '^modo=' "$CONFIG_FILE" | cut -d'=' -f2)
+RUTA=$(grep '^ruta=' "$CONFIG_FILE" | cut -d'=' -f2)
+
+export MODO
+
+# Función para aplicar un fondo de pantalla animado
+aplicar_animado() {
+  # Llama a tu script de fondo de pantalla animado aquí
+  # Por ejemplo:
+  # /ruta/a/tu/script_fondo_animado.sh
+  notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Not Implemented yet"
+}
+
+# Función para aplicar un fondo de pantalla estatico
+aplicar_estatico() {
+  feh --no-fehbg --bg-fill $RUTA &
+}
+
+# Función para aplicar un fondo de pantalla aleatorio
+aplicar_aleatorio() {
+  feh -z --no-fehbg --bg-fill $HOME/.config/bspwm/rices/$RICE_THEME/walls &
+}
+
+function get_icons(){
+  case "$1" in
+    "") echo "Estatico"
+    ;;
+    "") echo "Aleatorio"
+    ;;
+    "󰤺") echo "Animado"
+    ;;
+  esac
+}
+#
+# Mode Switcher
+#
+estatico="Estatico"
+animado="Animado"
+aleatorio="Aleatorio"
+
+options="\n\n󰤺"
+# Función para mostrar el menú de selección de modo
+select_mode() {
+  rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/wallpaperMode.rasi"
+  mode=$(echo -e $options | $rofi_command -p "Modo Actual: $MODO" -dmenu -selected-row 0)
+
+  if [ -n "$mode" ]; then
+    MODO=$(get_icons $mode)
+    set_wallpaper
+    # Actualiza el modo en el archivo de configuración
+    sed -i "s/^modo=.*/modo=$MODO/" "$CONFIG_FILE"
+  fi
+}
+
+# Función para llamar al selector de fondos
+wallpaper_switcher(){
+  case "$MODO" in
+    $aleatorio)
+      aplicar_aleatorio
+    ;;
+    $estatico)
+      WallpaperSwitcher --fancy
+    ;;
+    $animado)
+      notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Not Implemented yet"
+    ;;
+    *)
+    ;;
+  esac
+}
+
+# Aplica el fondo de pantalla en función del modo
+set_wallpaper(){
+  case "$MODO" in
+    $estatico)
+      aplicar_estatico
+      ;;
+    $aleatorio)
+      aplicar_aleatorio
+      ;;
+    $animado)
+      aplicar_animado
+      ;;
+    *)
+      notify-send -u normal -i $IMG -a WallpaperManager -t 1000 "Modo no válido en el archivo de configuración: $MODO"
+      exit 1
+      ;;
+  esac
+}
+
+# Comando estado
+status_command(){
+  echo -e "Estado del Wallpaper
+  Modo actual: $MODO
+  Wallpaper: $RUTA"
+}
+
+# Comando de ayuda
+help_command(){
+  echo -e "Uso WallpaperManager [opcion]
+  Opciones:
+  --selector: Despliega el selector de modo\n
+  --update: Actualiza el fondo de acuerdo al modo\n
+  --init: Inicia el fondo de acuerdo al modo\n
+  --status: Muestra el estado actual del fondo\n
+  --help: Muestra esta pagina de ayuda\n"
+}
+
+# Modos del script
+case "$1" in
+  --selector) 
+    select_mode
+  ;;
+  --update) 
+    wallpaper_switcher
+  ;;
+  --init)
+    set_wallpaper
+  ;;
+  --status)
+    status_command
+  ;;
+  --help | *)
+    help_command
+  ;;
+esac
+
+exit 0

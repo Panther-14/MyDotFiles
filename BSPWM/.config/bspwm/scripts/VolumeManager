@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Get Volume
+get_volume() {
+	pamixer --get-volume-human | sed 's/%//'
+}
+
+# Increase Volume
+increase_volume() {
+  [[$(pamixer --get-mute) == true]] && pamixer -u
+	pamixer --allow-boost --set-limit 150 -i 5
+}
+
+# Decrease Volume
+decrease_volume() {
+  [[$(pamixer --get-mute) == true]] && pamixer -u
+	pamixer --allow-boost --set-limit 150 -d 5
+}
+
+# Toggle Mute
+toggle_mute() {
+	if [[ $(pamixer --get-mute) == false ]]; then
+		pamixer --toggle-mute
+	else
+		pamixer --toggle-mute
+	fi
+}
+
+# Help
+help_command(){
+  echo -e "Uso VolumeManager [opcion]
+  Opciones:
+  --volume, -V: Muestra el volumen actual\n
+  --increase, -I: Aumenta el volument\n
+  --decrease, -D: Inicia el fondo de acuerdo al modo\n
+  --toggle, -M: Alterna entre silenciado y sonido\n
+  --help: Muestra esta pagina de ayuda\n"
+}
+
+case "$1" in
+  --volume|-V) get_volume
+  ;;
+  --increase|-I) increase_volume
+  ;;
+  --decrease|-D) decrease_volume
+  ;;
+  --toggle|-M) toggle_mute
+  ;;
+  --help) help_command
+  ;;
+  *) echo "$(get_volume)%"
+  ;;
+esac

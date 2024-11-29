@@ -1,0 +1,61 @@
+#!/usr/bin/bash
+
+IMG="$HOME/.config/bspwm/assets/a.png"
+
+
+MONITORS=($(xrandr | grep -w "connected" | cut -d" " -f1))
+
+NUM_OF_MONITORS=${#MONITORS[@]}
+
+duplicate_screen(){
+  MAIN_RESOLUTION=$(xrandr | grep -w ${MONITORS[0]} -A1 | tail -n 1 | awk '{print $1}')
+  
+  xrandr --output ${MONITORS[0]} --primary --mode ${MAIN_RESOLUTION} --pos 0x0 --rotate normal --output VGA-1 --off --output HDMI-1 --mode 1280x720 --pos 0x0 --rotate normal --output DP-1 --off
+  
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Duplicar pantalla"
+  
+}
+
+extend_screen(){
+  
+  xrandr --output LVDS-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output VGA-1 --off --output HDMI-1 --mode 1280x720 --pos 1366x0 --rotate normal --output DP-1 --off
+  
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Extender pantalla"
+
+}
+
+primary_only(){
+
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Pantalla primaria solamente"
+
+}
+
+secondary_only(){
+  
+  #bspc wm -r
+
+  notify-send -u normal -i $IMG -a ScreenManager -t 1000 "Pantalla secundaria solamente"
+
+}
+
+rofi_command="rofi -theme $HOME/.config/bspwm/assets/themes/wallpaperMode.rasi"
+
+duplicate="󰍺 "
+extend="󰍹 󰍹 "
+primary_only="󰍹 󰶐 "
+secondary_only="󰶐 󰍹 "
+
+options="$duplicate\n$extend\n$primary_only\n$secondary_only"
+
+chosen="$(echo -e "$options" | $rofi_command -p "Monitores" -dmenu)"
+
+case $chosen in
+    $duplicate) #duplicate_screen 
+    ;;
+    $extend) #extend_screen
+    ;;
+    $primary_only) #primary_only
+    ;;
+    $secondary_only) #secondary_only
+    ;;
+esac

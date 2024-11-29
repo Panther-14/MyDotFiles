@@ -21,6 +21,11 @@ export PATH=$PATH:~/.local/bin:~/.local/share/pipx/venvs
 #
 export PATH=$PATH:$HOME/.dotnet/tools
 
+#
+# Path para cargo
+#
+export PATH=$PATH:$HOME/.cargo/bin
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -76,7 +81,7 @@ alias la='lsd -a --group-dirs=first'
 alias l='lsd -lt --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
-alias {c,cls}='clear && pokemon-colorscripts --name fletchling --no-title'
+alias {c,cls}='clear && pokemon-colorscripts -r 1,3,6 --no-title'
 alias s="kitty +kitten ssh"
 alias lord="clear && sudo su"
 alias neo="clear && neofetch"
@@ -93,6 +98,12 @@ bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zshfire
+
 
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
 (( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize

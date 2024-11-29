@@ -1,0 +1,71 @@
+#!/usr/bin/bash
+
+#
+# Reminders
+# 
+
+# Función para mostrar los recordatorios
+show_reminders() {
+  
+  clear
+  
+  # Leemos el archivo de recordatorios
+  mdcat ~/Documentos/TODO.md
+
+}
+
+# Función para añadir un recordatorio
+add_reminder() {
+  # Generamos un ID aleatorio
+  id=$(date +"%s")
+  
+  # Solicitamos la fecha del recordatorio
+  now=$(date +"%a %u %d/%m/%y")
+
+  #day=$(date +"%u")
+
+  # Texto
+  texto=$1
+
+  # Añadimos el recordatorio al archivo
+  echo "- $id $now $texto" >> ~/Documentos/TODO.md
+
+  # Actualizamos la pantalla
+  show_reminders
+}
+
+# Función para eliminar un recordatorio
+delete_reminder() {
+  # Obtenemos el número del recordatorio a eliminar
+  number=$1
+
+  # Leemos el archivo de recordatorios
+  reminders=$(cat ~/Documentos/TODO.md)
+
+  # Encontramos el recordatorio
+  reminder=$(grep "$number" ~/Documentos/TODO.md)
+
+  # Si no se encontró el recordatorio
+  if [[ -z "$reminder" ]]; then
+    echo "No se encontró el recordatorio con el número $number"
+    return 1
+  fi
+
+  # Eliminamos el recordatorio del archivo
+  reminders=$(echo "$reminders" | sed "/$number/d")
+
+  # Escribimos el archivo actualizado
+  echo "$reminders" > ~/Documentos/TODO.md
+
+  # Actualizamos la pantalla
+  show_reminders
+}
+
+case "$1" in
+  --add) add_reminder "$2"
+  ;;
+  --remove) delete_reminder "$2"
+  ;;
+  --show|*) show_reminders
+  ;;
+esac

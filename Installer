@@ -1,54 +1,32 @@
 #!/bin/bash
 
-dotfilesPath="~/Github/MyDotFiles"
+# COLORS
+RED="\e[31m"
+GREEN="\e[32m"
+BLUE="\e[34m"
+ENDCOLOR="\e[0m"
 
-# Verifica que el usuario no sea root
+# If user is root end script
 if [ "$(whoami)" == "root" ]; then
   exit 1
 fi
 
-# Actualiza la base de datos de paquetes y el sistema
-# sudo pacman -Syu
-
-# Lista de paquetes a instalar
-packages=(
-  bat  bspwm  clipit  dunst  feh  firefox  flameshot
-  flatpak  git  git-lfs  htop  i3lock-fancy-git  kitty  lolcat
-  lsd  lxappearance  mdcat  neofetch  neovim  onefetch  picom
-  playerctl  pokemon-colorscripts-git  polybar  ranger  rofi
-  sxhkd  thunar  thunar-volman  wget  xorg-xsetroot  xorg-xinput vlc zsh unzip
-  xrandr sddm pamixer mpd mpc 
-)
-
-extra_packages=(
-  ani-cli  arandr  gparted  lftp  nano
-  noto-fonts  noto-fonts-cjk  noto-fonts-emoji
-  noto-fonts-extra   scrcpy  sddm-theme-corners-git
-  sddm-chinese-painting-theme ttf-dejavu
-  urbanlifestyle-sddm-theme  vim  zip
-)
-
-###
-###
-###
+# Ask yes or no function
 ask_yn() {
-    while true; do
-        read -p "$1 (y/n): " yn
-        case $yn in
-            [Yy]* ) return 0;;  # Return 0 (success) for yes
-            [Nn]* ) return 1;;  # Return 1 (failure) for no
-            * ) echo "Please answer y or n.";;
-        esac
-    done
+  while true; do
+    read -p "$1 (y/n): " yn
+    case $yn in
+      [Yy]* ) return 0;;  # Return 0 (success) for yes
+      [Nn]* ) return 1;;  # Return 1 (failure) for no
+      * ) echo -e "${RED}Please answer y or n.${ENDCOLOR}";;
+    esac
+  done
 }
-###
-###
-###
 
 # Instalar paru si no está instalado
 install_paru(){
   if ! command -v paru &>/dev/null; then
-      echo "\n>> Instalando paru (AUR helper)...\n"
+      echo -e "\n${BLUE}>> Instalando paru (AUR helper)...\n${ENDCOLOR}"
       git clone https://aur.archlinux.org/paru.git
       cd paru
       makepkg -si
@@ -60,7 +38,7 @@ install_paru(){
 # Instalar yay si no está instalado
 install_yay(){
   if ! command -v yay &> /dev/null; then
-    echo "\n>> Instalando yay (AUR helper)...\n"
+    echo -e "\n${BLUE}>> Instalando yay (AUR helper)...\n${ENDCOLOR}"
     sudo pacman -Syu --needed base-devel git
     git clone https://aur.archlinux.org/yay.git ~/yay
     (cd ~/yay && makepkg -si)
@@ -69,30 +47,30 @@ install_yay(){
 
 # Instala los paquetes
 install_packages(){
-  echo "\n>> Instalando o actualizando paquetes...\n"
-  for package in "${packages[@]}"
-  do
-    # Verifica si el paquete está instalado
-    if ! paru -Q "$package" >/dev/null; then
-      paru -S --needed "$package" --noconfirm
+  echo -e "\n${BLUE}>> Instalando o actualizando paquetes...\n${ENDCOLOR}"
+  if command -v yay &> /dev/null; then
+    yay -S --needed --noconfirm - < $1
+  else
+    if command -v paru &>/dev/null; then
+      paru -S --needed --noconfirm - < $1
     else
-      echo "\nPaquete ${package} instalado"
+      pacman -S --needed --noconfirm - < $1
     fi
-  done
+  fi
 }
 
 # Función para instalar el repositorio de blackarch
 install_blackarch_repo(){
   # Instalando Repositorio de Blackarch
-  echo "\n>> Instalando repositorio de BlackArch...\n"
+  echo -e "\n${BLUE}>> Instalando repositorio de BlackArch...\n${ENDCOLOR}"
   curl -O https://blackarch.org/strap.sh
   chmod +x strap.sh
   sudo ./strap.sh
 }
 
 copy_files(){
-  local dotfilesPathBspwm="$dotfilesPath/BSPWM"
-  echo "\n>> Copiando archivos de configuración...\n"
+  local dotfilesPathBspwm="bspwm-dotfiles"
+  echo -e "\n${BLUE}>> Copiando archivos de configuración...\n${ENDCOLOR}"
 
   cp -r $dotfilesPathBspwm/.config/bspwm ~/.config/
   cp -r $dotfilesPathBspwm/.config/neofetch ~/.config/
@@ -125,7 +103,7 @@ backup_files_and_copy_dots() {
     local src=$1
     local dest=$2
     if [ -e "$dest" ]; then
-        echo "Backing up existing $(basename "$dest") to $BACKUP_DIR"
+        echo -e "\n${BLUE}Backing up existing $(basename "$dest") to $BACKUP_DIR \n${ENDCOLOR}"
         mv "$dest" "$BACKUP_DIR"
     fi
     cp -rf "$src" "$dest"
@@ -134,98 +112,83 @@ backup_files_and_copy_dots() {
 
 # <---------------------------------------Funciones de Instalación--------------------------------------->
 
-
-# Bare Install (START) #
-config(){
-  git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-}
-
-bare_install(){
-  git clone --bare https://github.com/Panther-14/MyDotFiles.git $HOME/.dotfiles
-  mkdir -p .config-backup
-  config checkout
-  if [ $? = 0 ]; then
-    echo "Checked out config.";
-  else
-    echo "Backing up pre-existing dot files.";
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
-  fi;
-  config checkout
-  config config status.showUntrackedFiles no
-}
-
 # Bare Install (END) #
 
 # Instalar bspwm
 install_bspwm(){
+  local $dotfilesPathBspwm="bspwm-dotfiles"
   # Creando carpeta de Dotfiles
-  echo "\n>> Clonando Repositorio\n"
+  echo -e "\n${BLUE}>> Clonando Repositorio\n${ENDCOLOR}"
   cd
   mkdir Github
   cd Github/
-  git clone --depth=1 https://github.com/Panther-14/MyDotFiles.git
+  git clone --depth=1 https://github.com/Panther-14/bspwm-dotfiles.git
   
   # Instalar paru como AUR helper
   install_paru
 
   # Instalar o actualizar paquetes
-  install_packages
+  install_packages $dotfilesPath/packages_bspwm.lst
+
+  if ask_yn "Deseas añadir paquetes extra"; then
+    install_packages $dotfilesPath/packages_extra.lst
+  fi
 
   # Cambia el shell del usuario actual a zsh
-  echo "\n>> Cambiando shell...\n" 
+  echo -e "\n${BLUE}>> Cambiando shell...\n${ENDCOLOR}" 
   chsh -s "$(which zsh)"
 
   # Instalar Oh My Zsh para el usuario actual
-  echo "\n>> Instalando Oh My Zsh...\n"
+  echo -e "\n${BLUE}>> Instalando Oh My Zsh...\n${ENDCOLOR}"
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   # Instalar plugins zsh
-  echo "\n>> Instalando plugins omz...\n"
+  echo -e "\n${BLUE}>> Instalando plugins omz...\n${ENDCOLOR}"
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
   # Copiamos configuración
   copy_files
 
-  # Configuramos el Tema de Rofi
-  echo "\n>> Seleccionar tema para rofi...\n"
-  rofi-theme-selector
-
   # Removiendo Repositorio
-  echo "\n>> Limpiando archivos...\n"
+  echo -e "\n${BLUE}>> Limpiando archivos...\n${ENDCOLOR}"
   rm -rf ~/Github
 
   # Mensaje de Instalado
-  echo "\n>> Proceso de instalación y configuración completado.\n"
+  echo -e "\n${GREEN}>> Proceso de instalación y configuración completado.\n${ENDCOLOR}"
   notify-send "BSPWM INSTALADO"
 }
 
 # Instalar hyprland
 install_hyprland(){
-  local dotfilesPathHypr="$dotfilesPath/HYPRLAND" 
+  local dotfilesPathHypr="Hyprdots" 
   # Creando carpeta de Dotfiles
-  echo "\n>> Clonando Repositorio\n"
+  echo -e "\n${BLUE}>> Clonando Repositorio\n${ENDCOLOR}"
   cd
   mkdir Github
   cd Github/
-  git clone --depth=1 https://github.com/Panther-14/MyDotFiles.git
+  git clone --depth=1 https://github.com/Panther-14/Hyprdots.git
 
   # Instalar paru como AUR helper
   install_paru
 
   # Instalar o actualizar paquetes
-  install_packages
+  install_packages $dotfilesPath/packages_hyprland.lst
+
+  if ask_yn "Deseas añadir paquetes extra"; then
+    install_packages $dotfilesPath/packages_extra.lst
+  fi
 
   # Cambia el shell del usuario actual a zsh
-  echo "\n>> Cambiando shell...\n" 
+  echo -e "\n${BLUE}>> Cambiando shell...\n${ENDCOLOR}"
   chsh -s "$(which zsh)"
 
   # Instalar Oh My Zsh para el usuario actual
-  echo "\n>> Instalando Oh My Zsh...\n"
+  echo -e "\n${BLUE}>> Instalando Oh My Zsh...\n${ENDCOLOR}"
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   # Instalar plugins zsh
-  echo "\n>> Instalando plugins omz...\n"
+  echo -e "\n${BLUE}>> Instalando plugins omz...\n${ENDCOLOR}"
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
@@ -234,6 +197,7 @@ install_hyprland(){
   backup_files_and_copy_dots "$dotfilesPathHypr/.config/" "$HOME/.config/"
 
   backup_files_and_copy_dots "$dotfilesPathHypr/.zshrc" "$HOME/.zshrc"
+  backup_files_and_copy_dots "$dotfilesPathHypr/.p10k.zsh" "$HOME/.p10k.zsh"
 
   [ ! -d ~/.local/share/fonts ] && mkdir -p ~/.local/share/fonts
   [ ! -d ~/.local/share/icons ] && mkdir -p ~/.local/share/icons
@@ -246,47 +210,44 @@ install_hyprland(){
   mv $dotfilesPathHypr/.local/share/icons/Simp1e-Tokyo-Night-Storm ~/.local/share/icons
   unzip $dotfilesPathHypr/.local/share/icons/Tokyonight-Dark-Icons.zip -d ~/.local/share/icons
   unzip $dotfilesPathHypr/.local/share/themes/Tokyonight-Storm-B.zip -d ~/.local/share/themes
-  cp -r $dotfilesPathHypr/.local/share/rofi -d ~/.local/share/
 
   # Removiendo Repositorio
-  echo "\n>> Limpiando archivos...\n"
+  echo -e "\n${BLUE}>> Limpiando archivos...\n${ENDCOLOR}"
   rm -rf ~/Github
 
   # Mensaje de Instalado
-  echo "\n>> Proceso de instalación y configuración completado.\n"
+  echo -e "\n${GREEN}>> Proceso de instalación y configuración completado.\n${ENDCOLOR}"
 
 }
 
 # <---------------------------------------Instalación--------------------------------------->
 
+black_or_white(){
+  case "$1" in
+    bsp)
+      echo -e "\n${GREEN}>> Bspwm seleccionado.\n${ENDCOLOR}"
+      install_bspwm
+    ;;
+    hypr)
+      echo -e "\n${GREEN}>> Hyprland seleccionado.\n${ENDCOLOR}"
+      install_hyprland
+    ;;
+  esac
+
+  if ask_yn "¿Deseas instalar BlackArch?"; then
+    echo -e "\n${GREEN}>> Instalación BlackArch seleccionada.\n${ENDCOLOR}"
+    install_blackarch_repo
+  fi
+}
+
 case "$1" in
-  --bspwm)
-    case "$2" in
-    --black)
-      echo "\n>> Instalación BlackArch seleccionada.\n"
-      install_blackarch_repo
-      install_bspwm
-    ;;
-    --white|*)
-      echo "\n>> Instalación base seleccionada.\n"
-      install_bspwm
-    ;;
-    esac
+  --bspwm|[Bb]spwm)
+    black_or_white bsp
   ;;
-  --hyprland)
-    case "$2" in
-    --black)
-      echo "\n>> Instalación BlackArch seleccionada.\n"
-      install_blackarch_repo
-      install_hyprland
-    ;;
-    --white|*)
-      echo "\n>> Instalación base seleccionada.\n"
-      install_hyprland
-    ;;
-    esac
+  --hyprland|[Hh]yprland)
+    black_or_white hypr
   ;;
   *)
-    echo "\n Debes seleccionar un entorno (hyprland/bspwm)\n"
+    echo -e "\n${RED}>> Debes seleccionar un entorno (hyprland/bspwm)\n${ENDCOLOR}"
   ;;
 esac

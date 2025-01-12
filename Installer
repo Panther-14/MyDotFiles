@@ -128,10 +128,10 @@ install_bspwm(){
   install_paru
 
   # Instalar o actualizar paquetes
-  install_packages $dotfilesPath/packages_bspwm.lst
+  install_packages $dotfilesPathBspwm/packages_bspwm.lst
 
   if ask_yn "Deseas añadir paquetes extra"; then
-    install_packages $dotfilesPath/packages_extra.lst
+    install_packages $dotfilesPathBspwm/packages_extra.lst
   fi
 
   # Cambia el shell del usuario actual a zsh
@@ -173,10 +173,10 @@ install_hyprland(){
   install_paru
 
   # Instalar o actualizar paquetes
-  install_packages $dotfilesPath/packages_hyprland.lst
+  install_packages $dotfilesPathHyprdots/packages_extra.lst/packages_hyprland.lst
 
   if ask_yn "Deseas añadir paquetes extra"; then
-    install_packages $dotfilesPath/packages_extra.lst
+    install_packages $dotfilesPathHyprdots/packages_extra.lst/packages_extra.lst
   fi
 
   # Cambia el shell del usuario actual a zsh
